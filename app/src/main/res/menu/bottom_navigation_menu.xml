@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/search_icon" />
+    <item android:id="@+id/action_moovie"
+        android:title="Moovie"
+        android:icon="@drawable/moovie_icon" />
+    <item android:id="@+id/action_profile"
+        android:title="Profile"
+        android:icon="@drawable/user_icon" />
+</menu>
+ 
