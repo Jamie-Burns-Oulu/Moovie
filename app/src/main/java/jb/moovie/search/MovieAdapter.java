@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import jb.moovie.R;
 public class MovieAdapter extends ArrayAdapter<Movie> {
 
     private Context mContext;
-    private List<Movie> moviesList = new ArrayList<>();
+    private List<Movie> moviesList;
 
     public MovieAdapter(@NonNull Context context, ArrayList<Movie> list) {
         super(context, 0 , list);
@@ -36,17 +37,20 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.search_list, parent,false);
 
-        Movie currentMovie = moviesList.get(position);
+        final Movie currentMovie = moviesList.get(position);
 
-        ImageView image = listItem.findViewById(R.id.list_poster);
-        Glide.with(getContext()).load(currentMovie.getPoster()).into(image);
+        ImageView poster = listItem.findViewById(R.id.list_poster);
+        Glide.with(getContext()).load(currentMovie.getPoster()).into(poster);
 
-        TextView name = listItem.findViewById(R.id.list_title);
-        name.setText(currentMovie.getTitle());
+        TextView title = listItem.findViewById(R.id.list_title);
+        title.setText(currentMovie.getTitle());
 
-        TextView release = listItem.findViewById(R.id.list_year);
-        release.setText(currentMovie.getYear());
+        TextView year = listItem.findViewById(R.id.list_year);
+        year.setText(currentMovie.getYear());
+
+        listItem.setTag(currentMovie.getId());
 
         return listItem;
+
     }
 }
