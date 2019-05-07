@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/details_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/detail_poster"
+            android:layout_width="161dp"
+            android:layout_height="241dp"
+            android:contentDescription="Poster"
+            android:orientation="horizontal"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_released"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Released"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/detail_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genre"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/detail_runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Runtime"
+                android:textSize="10dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/detail_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6/10"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/detail_rating_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(15)"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/detail_director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Director's Name"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/detail_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Writer's Name"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/detail_actors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actor's Names"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/detail_plot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="This is the plot"
+        android:textSize="10dp" />
+
+
+</LinearLayout>

@@ -48,7 +48,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         TextView year = listItem.findViewById(R.id.list_year);
         year.setText(currentMovie.getYear());
 
-        listItem.setTag(currentMovie.getId());
+        listItem.setTag(currentMovie.getImdbID());
 
         return listItem;
 

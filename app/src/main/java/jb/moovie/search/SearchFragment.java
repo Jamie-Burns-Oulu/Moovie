@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.transitionseverywhere.ArcMotion;
 import com.transitionseverywhere.ChangeBounds;
@@ -62,19 +63,22 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    //TODO MAKE UPDATES WORK AS INTENDED
     private void search() {
         searchField.addTextChangedListener(new TextWatcher() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(mAdapter != null)  mAdapter.clear();
                 SearchVolley.filmSearch(s, getContext());
                 mAdapter = new MovieAdapter(Objects.requireNonNull(getContext()), SearchVolley.getMoviesList());
-                listView.setAdapter(mAdapter);
                 if (s.length() == 0) {
                     adjustView(false);
+                    mAdapter.clear();
                 } else {
                     details();
                     adjustView(true);
+                    listView.setAdapter(mAdapter);
                 }
             }
 
@@ -88,18 +92,24 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    //TODO FIX UPDATING BUG
     @SuppressLint("ClickableViewAccessibility")
     private void details() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long idx) {
-               Log.d("HERE"," " + view.getTag());
+                SearchVolley.filmDetails(String.valueOf(view.getTag()), getContext());
+                DetailsFragment detailsFragment = new DetailsFragment();
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, detailsFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
 
     private void adjustView(boolean b) {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Display display = Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
 
@@ -119,8 +129,6 @@ public class SearchFragment extends Fragment {
             params.width = (int) (size.x * 0.65);
         }
         searchField.setLayoutParams(params);
-
-
     }
 
 }
