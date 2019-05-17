@@ -1,7 +1,6 @@
 package jb.moovie.search;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,22 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.transitionseverywhere.ArcMotion;
 import com.transitionseverywhere.ChangeBounds;
@@ -36,6 +28,7 @@ import com.transitionseverywhere.extra.Scale;
 import java.util.Objects;
 
 import jb.moovie.R;
+import jb.moovie.search.details.DetailsFragment;
 
 public class SearchFragment extends Fragment {
 

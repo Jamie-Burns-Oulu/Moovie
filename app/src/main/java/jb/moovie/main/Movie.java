@@ -1,4 +1,4 @@
-package jb.moovie.search;
+package jb.moovie.main;
 
 public class Movie {
 

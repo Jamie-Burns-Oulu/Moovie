@@ -1,7 +1,10 @@
-package jb.moovie;
+package jb.moovie.main;
 
 import android.support.v4.app.Fragment;
 
+import jb.moovie.mooive.MoovieFragment;
+import jb.moovie.profile.ProfileFragment;
+import jb.moovie.R;
 import jb.moovie.search.SearchFragment;
 
 public class FragmentHandler {

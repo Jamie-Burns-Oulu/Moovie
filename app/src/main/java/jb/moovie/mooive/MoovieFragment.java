@@ -1,4 +1,4 @@
-package jb.moovie;
+package jb.moovie.mooive;
 
 import android.support.v4.app.Fragment;
 

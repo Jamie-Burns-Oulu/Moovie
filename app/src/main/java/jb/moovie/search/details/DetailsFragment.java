@@ -1,4 +1,4 @@
-package jb.moovie.search;
+package jb.moovie.search.details;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +20,8 @@ import com.transitionseverywhere.TransitionSet;
 import java.util.Objects;
 
 import jb.moovie.R;
+import jb.moovie.main.Movie;
+import jb.moovie.search.SearchVolley;
 
 
 public class DetailsFragment extends Fragment {

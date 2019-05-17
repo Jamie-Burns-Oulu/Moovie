@@ -1,7 +1,6 @@
 package jb.moovie.search;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,12 +14,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import jb.moovie.BuildConfig;
+import jb.moovie.main.Movie;
 
 import static java.lang.Integer.parseInt;
 
 public class SearchVolley {
 
-    private static String poster, title, year, imdbID;
+    private static String poster, title, year, imdbID, imdbVotes, imdbRating, runtime,
+            released, plot, director, actors, genre, writer;
     private static ArrayList<Movie> moviesList = new ArrayList<>();
     private static Movie movieDetails = null;
     static String ApiKey = BuildConfig.ApiKey;
@@ -41,7 +42,7 @@ public class SearchVolley {
                                 title = currentFilm.getString("Title");
                                 year = currentFilm.getString("Year");
                                 imdbID = currentFilm.getString("imdbID");
-                                moviesList.add(new Movie(poster, title, year, imdbID, null, null,null,
+                                moviesList.add(new Movie(poster, title, year, imdbID, null, null, null,
                                         null, null, null, null, null, null));
                             }
                         } catch (JSONException e) {
@@ -61,27 +62,27 @@ public class SearchVolley {
     }
 
 
-    public static void filmDetails(final String imdbID, final Context context) {
+    public static void filmDetails(final String id, final Context context) {
         JsonObjectRequest detailsRequest = new JsonObjectRequest
-                (Request.Method.GET, url + "&i=" + imdbID + "&plot=full", null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, url + "&i=" + id + "&plot=full", null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String title = response.getString("Title");
-                            String poster = response.getString("Poster");
-                            String year = response.getString("Year");
-                            String imdbID = response.getString("imdbID");
-                            String imdbVotes = " ("+response.getString("imdbVotes")+")";
-                            String imdbRating = "Rating: " +response.getString("imdbRating")+"/10 ";
-                            String runtime = "Runtime: "+response.getString("Runtime");
-                            String released = "Released: "+response.getString("Released");
-                            String plot = "Plot: "+response.getString("Plot");
-                            String director = "Director: "+response.getString("Director");
-                            String actors = "Actors: "+response.getString("Actors");
-                            String genre = "Genre: "+response.getString("Genre");
-                            String writer = "Writers: "+response.getString("Writer");
-                            movieDetails = new Movie(poster, title, year, imdbID, imdbVotes, imdbRating,runtime,
-                                    released, plot,director,actors, genre, writer);
+                            title = response.getString("Title");
+                            poster = response.getString("Poster");
+                            year = response.getString("Year");
+                            imdbID = response.getString("imdbID");
+                            imdbVotes = " (" + response.getString("imdbVotes") + ")";
+                            imdbRating = "Rating: " + response.getString("imdbRating") + "/10 ";
+                            runtime = "Runtime: " + response.getString("Runtime");
+                            released = "Released: " + response.getString("Released");
+                            plot = "Plot: " + response.getString("Plot");
+                            director = "Director: " + response.getString("Director");
+                            actors = "Actors: " + response.getString("Actors");
+                            genre = "Genre: " + response.getString("Genre");
+                            writer = "Writers: " + response.getString("Writer");
+                            movieDetails = new Movie(poster, title, year, imdbID, imdbVotes, imdbRating, runtime,
+                                    released, plot, director, actors, genre, writer);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -95,7 +96,7 @@ public class SearchVolley {
     }
 
     public static Movie getMovieDetails() {
-         return movieDetails;
+        return movieDetails;
     }
 
 }

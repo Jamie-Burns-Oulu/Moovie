@@ -1,4 +1,4 @@
-package jb.moovie;
+package jb.moovie.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import jb.moovie.mooive.MoovieFragment;
+import jb.moovie.profile.ProfileFragment;
+import jb.moovie.R;
 import jb.moovie.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
