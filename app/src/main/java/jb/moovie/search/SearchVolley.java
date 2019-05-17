@@ -25,9 +25,10 @@ public class SearchVolley {
     private static ArrayList<Movie> moviesList = new ArrayList<>();
     private static Movie movieDetails = null;
     static String ApiKey = BuildConfig.ApiKey;
-    static String url = "http://www.omdbapi.com/?apikey=" + ApiKey;
+    static String url = "https://www.omdbapi.com/?apikey=" + ApiKey;
 
     public static void filmSearch(CharSequence s, Context ctx) {
+        moviesList = new ArrayList<>();
         JsonObjectRequest searchRequest = new JsonObjectRequest
                 (Request.Method.GET, url + "&s=" + s, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -46,7 +47,6 @@ public class SearchVolley {
                                         null, null, null, null, null, null));
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -61,8 +61,19 @@ public class SearchVolley {
         return moviesList;
     }
 
+    public interface DetailsInterface {
+        void detailsSet();
+    }
+    private DetailsInterface listener;
+    public SearchVolley(String id, Context context) {
+        this.listener = null;
+        filmDetails(id, context);
+    }
+    public void setCustomObjectListener(DetailsInterface listener) {
+        this.listener = listener;
+    }
 
-    public static void filmDetails(final String id, final Context context) {
+    public void filmDetails(final String id, final Context context) {
         JsonObjectRequest detailsRequest = new JsonObjectRequest
                 (Request.Method.GET, url + "&i=" + id + "&plot=full", null, new Response.Listener<JSONObject>() {
                     @Override
@@ -83,8 +94,9 @@ public class SearchVolley {
                             writer = "Writers: " + response.getString("Writer");
                             movieDetails = new Movie(poster, title, year, imdbID, imdbVotes, imdbRating, runtime,
                                     released, plot, director, actors, genre, writer);
+                            if (listener != null)
+                                listener.detailsSet();
                         } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -98,5 +110,4 @@ public class SearchVolley {
     public static Movie getMovieDetails() {
         return movieDetails;
     }
-
 }

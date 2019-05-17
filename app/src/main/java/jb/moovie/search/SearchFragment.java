@@ -20,15 +20,16 @@ import android.widget.ListView;
 
 import com.transitionseverywhere.ArcMotion;
 import com.transitionseverywhere.ChangeBounds;
-import com.transitionseverywhere.Fade;
 import com.transitionseverywhere.TransitionManager;
-import com.transitionseverywhere.TransitionSet;
-import com.transitionseverywhere.extra.Scale;
 
 import java.util.Objects;
 
 import jb.moovie.R;
 import jb.moovie.search.details.DetailsFragment;
+
+import static jb.moovie.search.SearchVolley.DetailsInterface;
+import static jb.moovie.search.SearchVolley.filmSearch;
+import static jb.moovie.search.SearchVolley.getMoviesList;
 
 public class SearchFragment extends Fragment {
 
@@ -62,17 +63,18 @@ public class SearchFragment extends Fragment {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(mAdapter != null)  mAdapter.clear();
-                SearchVolley.filmSearch(s, getContext());
-                mAdapter = new MovieAdapter(Objects.requireNonNull(getContext()), SearchVolley.getMoviesList());
+                if (mAdapter != null) mAdapter.clear();
+                filmSearch(s, getContext());
                 if (s.length() == 0) {
                     adjustView(false);
                     mAdapter.clear();
+                    listView.setAdapter(null);
                 } else {
-                    details();
                     adjustView(true);
-                    listView.setAdapter(mAdapter);
+                    detailsListeners();
                 }
+                mAdapter = new MovieAdapter(Objects.requireNonNull(getContext()), getMoviesList());
+                listView.setAdapter(mAdapter);
             }
 
             @Override
@@ -85,18 +87,22 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    //TODO FIX UPDATING BUG
-    @SuppressLint("ClickableViewAccessibility")
-    private void details() {
+
+    private void detailsListeners() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long idx) {
-                SearchVolley.filmDetails(String.valueOf(view.getTag()), getContext());
-                DetailsFragment detailsFragment = new DetailsFragment();
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, detailsFragment)
-                        .addToBackStack(null)
-                        .commit();
+                SearchVolley searchVolley = new SearchVolley(view.getTag().toString(), getContext());
+                searchVolley.setCustomObjectListener(new DetailsInterface() {
+                    @Override
+                    public void detailsSet() {
+                        DetailsFragment detailsFragment = new DetailsFragment();
+                        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, detailsFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
             }
         });
     }

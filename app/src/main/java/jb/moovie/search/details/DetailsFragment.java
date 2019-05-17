@@ -1,7 +1,6 @@
 package jb.moovie.search.details;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -37,14 +36,7 @@ public class DetailsFragment extends Fragment {
 
         transitionsContainer = view.findViewById(R.id.details_fragment);
 
-        //TODO ADD INTERFACE FOR BELOW
-
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                movieDetails = SearchVolley.getMovieDetails();
-                setDetails();
-            }
-        }, 500);
+        movieDetails = SearchVolley.getMovieDetails();
 
         poster = view.findViewById(R.id.detail_poster);
         poster.setOnClickListener(new View.OnClickListener() {
@@ -67,15 +59,12 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+        setDetails();
         return view;
     }
 
     private void setDetails() {
-
         Glide.with(Objects.requireNonNull(getContext())).load(movieDetails.getPoster()).into(poster);
-
-//        TextView title = view.findViewById(R.id.detail_title);
-//        title.setText(movieDetails.getTitle());
 
         TextView released = view.findViewById(R.id.detail_released);
         released.setText(movieDetails.getReleased());
@@ -105,6 +94,5 @@ public class DetailsFragment extends Fragment {
         plot.setText(movieDetails.getPlot());
 
     }
-
 
 }

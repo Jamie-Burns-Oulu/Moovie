@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, FragmentHandler.getCurrentFragment()).commit();
     }
-
-
+    //TODO FIX CURRENT FRAG TO CURRENT FRAG
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
